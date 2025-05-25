@@ -15,6 +15,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+
 // Check if form data is received
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST['name'];
@@ -25,8 +26,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $time = $_POST['time'];
 
     // Prepare and bind SQL statement
-    $stmt = $conn->prepare("INSERT INTO bookings (name, phone, email, service_type, booking_date, booking_time) VALUES (?, ?, ?, ?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO bookings (full_name, phone, email, service, date, time) VALUES (?, ?, ?, ?, ?, ?)");
     $stmt->bind_param("ssssss", $name, $phone, $email, $service, $date, $time);
+
 
     if ($stmt->execute()) {
         echo "Booking successful!";
